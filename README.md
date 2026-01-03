@@ -4,7 +4,7 @@ A 2016 project, quadrupedal robot designed to explore environment with autonomou
 ## 🎥 Demo Video
 <p align="center"> 
   <a href="https://youtu.be/bV3iG244wSU" target="_blank"> 
-    <img src="https://img.youtube.com/vi/bV3iG244wSU/hqdefault.jpg" alt="Watch the video" width="600"> 
+    <img src="https://img.youtube.com/vi/bV3iG244wSU/sddefault.jpg" alt="Watch the video" width="600"> 
   </a> 
 </p>
 
