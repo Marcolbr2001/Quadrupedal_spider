@@ -24,3 +24,4 @@ This quadruped robot uses:
 12 Servomotors (3 per leg) to create structure for fluid movement.
 
 An Ultrasonic Distance Sensor (HC-SR04) for detecting obstacles and autonomous navigation.
+
