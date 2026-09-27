@@ -2,7 +2,7 @@
 
 <img width="1179" height="1451" alt="IMG_1272" src="https://github.com/user-attachments/assets/f929e8d6-cc07-4266-8d5a-cb2376de141d" />
 
-Welcome to the repository for my custom-built Quadruped Spider Robot! This project is a complete robotics platform featuring a 3D-printed chassis and a fully custom-designed Printed Circuit Board (PCB).
+Welcome to the repository for the Quadruped Spider Robot. This project is a complete robotics platform featuring a 3D-printed chassis and a fully custom-designed Printed Circuit Board (PCB).
 
 The robot walks on twelve servos, keeps itself level using an on-board IMU, watches the room with an ultrasonic sensor, animates a pair of eyes on an OLED, and is driven from a phone over its own Wi-Fi network — no app to install.
 
@@ -10,7 +10,7 @@ The robot walks on twelve servos, keeps itself level using an on-board IMU, watc
 
 *   **Brain:** An **ESP32-S3-WROOM-1-N8R8** (dual core, 8 MB flash, 8 MB octal PSRAM). One core runs the gait, the sensors and the web server; the other is dedicated to the eye animation, so the display never stutters while the robot walks.
 *   **Custom PCB:** A completely customized, purpose-built motherboard integrating power management, logic and signal routing, eliminating messy wiring.
-*   **Servo control:** An on-board **PCA9685** PWM driver commands **12 servo motors** — 3 degrees of freedom per leg — over a dedicated I²C bus, with a hardware output-enable line that can relax every servo at once.
+*   **Servo control:** An on-board **PCA9685** PWM driver commands **12 servo motors**, 3 degrees of freedom per leg, over a dedicated I²C bus, with a hardware output-enable line that can relax every servo at once.
 *   **Attitude sensing:** A **BMI270 IMU** on the SPI bus, read at 100 Hz, feeds a **closed loop that keeps the body level in real time** (see below).
 *   **Distance sensing:** An HC-SR04 ultrasonic sensor at the front, plus two spare headers for VL53L1 time-of-flight laser sensors.
 *   **Display:** An **OLED screen** animating the robot's "eyes" — expressions, blinking, gaze direction — and doubling as a battery and status indicator.
@@ -37,8 +37,6 @@ To ensure stable power delivery to all 12 servos and keep the form factor compac
 | Laser range | 2 × VL53L1 headers @ `0x29` | I²C bus 1 | Wired and ready; not yet used by the firmware. |
 | Battery sense | 1 MΩ / 270 kΩ divider | GPIO2 (ADC1) | Reads the 3S pack down to a per-cell voltage. |
 
-**The two I²C buses are deliberately separate.** The servo driver sits alone on bus 0 while the display and the laser sensors share bus 1, so redrawing the eyes can never steal bandwidth from the motors.
-
 ### The IMU keeps the robot level, continuously
 
 The BMI270 is not just a tilt read-out — it is **inside the control loop**. Fifty times a second, the firmware:
@@ -48,6 +46,8 @@ The BMI270 is not just a tilt read-out — it is **inside the control loop**. Fi
 3. counter-rotates the **body** by that amount through the inverse kinematics, while the feet stay planted.
 
 The result is that if you tilt the surface the spider is standing on, it re-levels its chassis and stays upright. The correction gain is tunable live from the phone, and the whole loop can be switched off with one button. The same sensor also detects a genuine fall: past a threshold angle the robot stops trying to walk, sits down, and waits until it is set upright again.
+
+**The two I²C buses are deliberately separate.** The servo driver sits alone on bus 0 while the display and the laser sensors share bus 1, so redrawing the eyes can never steal bandwidth from the motors.
 
 ## 📱 Phone Interface
 
